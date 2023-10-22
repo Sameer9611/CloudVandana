@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input[type="text"], select {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="email"], select {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="tel"], select {
+            width: 80%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="checkbox"] {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        #submit, #reset {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        #submit:hover, #reset:hover {
+            background-color: #45a049;
+        }
+        .required::after {
+        content: ' *';
+        color: red;
+      }
+        #popup {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+        #popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Survey Form</h2>
+        <form id="surveyForm">
+            <label class="required" for="firstName">First Name:</label>
+            <input type="text" id="firstName" required>
+
+            <label class="required" for="lastName">Last Name:</label>
+            <input type="text" id="lastName" required>
+
+            <label class="required" for="dob">Date of Birth:</label>
+            <input type="date" id="dob" required>
+
+            <label class="required" for="country">Country:</label>
+            <select id="country" required>
+                <option value="none">None</option>
+                 <option value="India">India</option>
+                 <option value="Pakistan">Pakistan</option>
+                 <option value="Srilanka">Srilanka</option>
+            </select>
+
+            <label class="required">Gender:</label>
+            <input type="radio" name="gender" id="male" value="Male" required>Male
+            <input type="radio" name="gender" id="female" value="Female" required>Female
+
+            <label class="required" for="profession">Profession:</label>
+            <input type="text" id="profession" required>
+
+            <label class="required" for="email">Email:</label>
+            <input type="email" id="email" required>
+
+            <label class="required" for="mobile">Mobile Number:</label>
+            <input type="tel" id="mobile" required>
+
+            <button type="button" id="submit">Submit</button>
+            <button type="reset" id="reset">Reset</button>
+        </form>
+    </div>
+
+    <div id="popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7);">
+        <div style="background: white; width: 300px; padding: 20px; border-radius: 5px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h2>Survey Results</h2>
+            <ul id="resultsList"></ul>
+            <button type="reset" id="okButton">OK</button>
+        </div>
+    </div>
+
+    <script>
+         
+        document.getElementById('submit').addEventListener('click', function() {
+            
+        if (document.getElementById('surveyForm').checkValidity()) {
+
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const dob = document.getElementById('dob').value;
+            const country = document.getElementById('country').value;
+            const genderCheckboxes = document.querySelectorAll('input[name="gender"]:checked');
+            const gender = [...genderCheckboxes].map(cb => cb.value).join(', ');
+            const profession = document.getElementById('profession').value;
+            const email = document.getElementById('email').value;
+            const mobile = document.getElementById('mobile').value;
+
+            
+            const resultsList = document.getElementById('resultsList');
+            resultsList.innerHTML = `
+                <li>First Name: ${firstName}</li>
+                <li>Last Name: ${lastName}</li>
+                <li>Date of Birth: ${dob}</li>
+                <li>Country: ${country}</li>
+                <li>Gender: ${gender}</li>
+                <li>Profession: ${profession}</li>
+                <li>Email: ${email}</li>
+                <li>Mobile Number: ${mobile}</li>
+            `;
+
+            document.getElementById('popup').style.display = 'flex';
+        }
+        });
+
+        document.getElementById('reset').addEventListener('click', function() {
+            location.reload();
+        });
+
+        document.getElementById('okButton').addEventListener('click', function() {
+            document.getElementById('popup').style.display = 'none';
+            location.reload();
+        });
+       
+
+    </script>
+</body>
+</html>

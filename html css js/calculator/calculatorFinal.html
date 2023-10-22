@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="calculator.css">
+  <title>Calculator</title>
+</head>
+<body>
+  <div class="calculator" id="calculator">
+    <div class="container1">
+      <div class="display" id="display"></div>
+      <div class="AC" id="clear">AC</div>
+    </div>
+    <div class="container2">
+      <div class="digit9" id="nine">9</div>
+      <div class="digit8" id="eight">8</div>
+      <div class="digit7" id="seven">7</div>
+      <div class="digitAdd" id="add">+</div>
+    </div>
+    <div class="container3">
+      <div class="digit6" id="six">6</div>
+      <div class="digit5" id="five">5</div>
+      <div class="digit4" id="four">4</div>
+      <div class="digitSub" id="subtract">-</div>
+    </div>
+    <div class="container4">
+      <div class="digit3" id="three">3</div>
+      <div class="digit2" id="two">2</div>
+      <div class="digit1" id="one">1</div>
+      <div class="digitDivide" id="divide">/</div>
+    </div>
+    <div class="container5">
+      <div class="digitdot" id="dot">.</div>
+      <div class="digit0" id="zero">0</div>
+      <div class="digitequal" id="equals">=</div>
+      <div class="digitmulti" id="multiply">x</div>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    let currentInput = "";
+    let operator = "";
+    let firstOperand = "";
+
+    document.getElementById("calculator").addEventListener("click", (event) => {
+  const text = event.target.textContent;
+
+  if (text === "AC") {
+    currentInput = "";
+    operator = "";
+    firstOperand = "";
+    display.textContent = "";
+  } else if (/[0-9]/.test(text)) {
+    if (display.textContent === "Error") {
+      currentInput = "";
+      display.textContent = "";
+    }
+    currentInput += text;
+    display.textContent = currentInput;
+  } else if (['+', '-', 'x', '/'].includes(text)) {
+    operator = text;
+    firstOperand = currentInput;
+    currentInput = "";
+    // Update the display with the selected operator
+    display.textContent = operator;
+  } else if (text === '.') {
+    if (!currentInput.includes('.')) {
+      currentInput += '.';
+      display.textContent = currentInput;
+    }
+  } else if (text === '=') {
+    if (firstOperand === "" || operator === "" || currentInput === "") return;
+    const result = calculate(firstOperand, currentInput, operator);
+    if (result === "Error") {
+      display.textContent = "Error";
+    } else {
+      display.textContent = result;
+    }
+    firstOperand = result;
+    operator = "";
+    currentInput = result;
+  }
+});
+
+
+    function calculate(a, b, op) {
+      a = parseFloat(a);
+      b = parseFloat(b);
+      switch (op) {
+        case '+':
+          return a + b;
+        case '-':
+          return a - b;
+        case 'x':
+          return a * b;
+        case '/':
+          if (b === 0) {
+            return "Error";
+          }
+          return a / b;
+      }
+    }
+  </script>
+</body>
+</html>

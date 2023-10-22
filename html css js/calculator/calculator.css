@@ -1,0 +1,49 @@
+.container1,.container2,.container3,.container4,.container5{
+    display: flex;
+}
+
+
+.display{
+    height: 50px;
+    width: 300px;
+    background-color: white;
+    justify-content: center;
+
+}
+.AC{
+    height: 50px;
+    width: 100px;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.digit1,.digit2,.digit3,.digit4,.digit5,.digit6,.digit7,.digit8,.digit9,.digit0,.digitdot,.digitequal{
+    height: 50px;
+    width:100px;
+    background-color:rgb(40, 26, 31);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+
+}
+
+.digitAdd,.digitSub,.digitDivide,.digitmulti{
+    height: 50px;
+    width:100px;
+    background-color: rgb(59, 57, 57);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+}
+body{
+    background-color: gray;
+}
+.calculator{
+    position:absolute;
+    right:50%;
+    top: 20%;
+}
